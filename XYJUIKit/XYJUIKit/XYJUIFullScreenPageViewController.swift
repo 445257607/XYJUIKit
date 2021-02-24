@@ -11,7 +11,7 @@ import UIKit
  建立在UIViewController基础上的全屏页面。
  包括页眉\页脚\全屏内容\安全区内容的控制
  */
-class XYJUIFullScreenPageViewController: UIViewController {
+open class XYJUIFullScreenPageViewController: UIViewController {
     
     // MARK: - 页眉
     
@@ -48,6 +48,7 @@ class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(headerBarBackground!)
                 }
                 headerBarBackground?.frame = headerBarBackgroundFrame
+                headerBarBackground?.isHidden = isHeaderBarHidden
             }
         }
     }
@@ -65,6 +66,7 @@ class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(headerBar!)
                 }
                 headerBar?.frame = headerBarFrame
+                headerBar?.isHidden = isHeaderBarHidden
             }
         }
     }
@@ -126,6 +128,7 @@ class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(footerBarBackground!)
                 }
                 footerBarBackground?.frame = footerBarBackgroundFrame
+                footerBarBackground?.isHidden = isFooterBarHidden
             }
         }
     }
@@ -143,6 +146,7 @@ class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(footerBar!)
                 }
                 footerBar?.frame = footerBarFrame
+                footerBar?.isHidden = isFooterBarHidden
             }
         }
     }

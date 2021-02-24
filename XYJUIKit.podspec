@@ -64,7 +64,7 @@ Pod::Spec.new do |spec|
   #
 
   # spec.platform     = :ios
-  # spec.platform     = :ios, "5.0"
+  spec.platform     = :ios, "9.0"
 
   #  When using multiple platforms
   # spec.ios.deployment_target = "5.0"
@@ -90,7 +90,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "XYJUIKit", "XYJUIKit/**/*.{h,m}"
+  spec.source_files  = "XYJUIKit/**/*.swift"
   spec.exclude_files = "XYJUIKit/**/*.h"
 
   # spec.public_header_files = "Classes/**/*.h"

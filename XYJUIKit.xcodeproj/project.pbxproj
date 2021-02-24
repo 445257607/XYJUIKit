@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4CBAAEB125E685C900C03457 /* XYJUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CBAAEAF25E685C900C03457 /* XYJUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CBAAF0325E68CC000C03457 /* XYJUIFullScreenPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBAAF0225E68CC000C03457 /* XYJUIFullScreenPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4CBAAEAC25E685C900C03457 /* XYJUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XYJUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CBAAEAF25E685C900C03457 /* XYJUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJUIKit.h; sourceTree = "<group>"; };
 		4CBAAEB025E685C900C03457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CBAAF0225E68CC000C03457 /* XYJUIFullScreenPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYJUIFullScreenPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +48,27 @@
 		4CBAAEAE25E685C900C03457 /* XYJUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4CBAAEFD25E68B7B00C03457 /* UIKitExtension */,
+				4CBAAEFC25E68B7B00C03457 /* XYJUIKit */,
 				4CBAAEAF25E685C900C03457 /* XYJUIKit.h */,
 				4CBAAEB025E685C900C03457 /* Info.plist */,
 			);
 			path = XYJUIKit;
+			sourceTree = "<group>";
+		};
+		4CBAAEFC25E68B7B00C03457 /* XYJUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				4CBAAF0225E68CC000C03457 /* XYJUIFullScreenPageViewController.swift */,
+			);
+			path = XYJUIKit;
+			sourceTree = "<group>";
+		};
+		4CBAAEFD25E68B7B00C03457 /* UIKitExtension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIKitExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -94,6 +113,7 @@
 				TargetAttributes = {
 					4CBAAEAB25E685C900C03457 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -130,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CBAAF0325E68CC000C03457 /* XYJUIFullScreenPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +282,7 @@
 		4CBAAEB525E685C900C03457 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = XB3PS7P9TZ;
@@ -279,6 +301,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -287,6 +310,7 @@
 		4CBAAEB625E685C900C03457 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = XB3PS7P9TZ;

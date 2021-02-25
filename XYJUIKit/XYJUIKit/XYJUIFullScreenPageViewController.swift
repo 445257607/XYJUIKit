@@ -19,8 +19,8 @@ open class XYJUIFullScreenPageViewController: UIViewController {
     open var isHeaderBarHidden: Bool = true {
         didSet {
             guard oldValue != isHeaderBarHidden else { return }
-            headerBar?.isHidden = isHeaderBarHidden
-            headerBarBackground?.isHidden = isHeaderBarHidden
+            headerBarBackground?.frame = headerBarBackgroundFrame
+            headerBar?.frame = headerBarFrame
             safeAreaView?.frame = safeArea
         }
     }
@@ -48,7 +48,6 @@ open class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(headerBarBackground!)
                 }
                 headerBarBackground?.frame = headerBarBackgroundFrame
-                headerBarBackground?.isHidden = isHeaderBarHidden
             }
         }
     }
@@ -66,7 +65,6 @@ open class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(headerBar!)
                 }
                 headerBar?.frame = headerBarFrame
-                headerBar?.isHidden = isHeaderBarHidden
             }
         }
     }
@@ -74,22 +72,52 @@ open class XYJUIFullScreenPageViewController: UIViewController {
     // MARK: 页眉框架
     open var headerBarBackgroundFrame: CGRect {
         if #available(iOS 11.0, *) {
-            return CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.safeAreaInsets.top + headerBarHeight)
+            if isHeaderBarHidden {
+                return CGRect(x: 0, y: -(view.safeAreaInsets.top + headerBarHeight), width: view.bounds.width, height: view.safeAreaInsets.top + headerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: 0, width: view.bounds.width, height: view.safeAreaInsets.top + headerBarHeight)
+            }
         } else if prefersStatusBarHidden {
-            return CGRect(x: 0, y: 0, width: self.view.bounds.width, height: headerBarHeight)
+            if isHeaderBarHidden {
+                return CGRect(x: 0, y: -headerBarHeight, width: view.bounds.width, height: headerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: 0, width: view.bounds.width, height: headerBarHeight)
+            }
         } else {
-            return CGRect(x: 0, y: 0, width: self.view.bounds.width, height: headerBarHeight + UIApplication.shared.statusBarFrame.height)
+            if isHeaderBarHidden {
+                return CGRect(x: 0, y: -(headerBarHeight + UIApplication.shared.statusBarFrame.height), width: view.bounds.width, height: headerBarHeight + UIApplication.shared.statusBarFrame.height)
+            }
+            else {
+                return CGRect(x: 0, y: 0, width: view.bounds.width, height: headerBarHeight + UIApplication.shared.statusBarFrame.height)
+            }
         }
     }
     
     // MARK: 页眉框架
     open var headerBarFrame: CGRect {
         if #available(iOS 11.0, *) {
-            return CGRect(x: self.view.safeAreaInsets.left, y: self.view.safeAreaInsets.top, width: self.view.bounds.width - self.view.safeAreaInsets.left - self.view.safeAreaInsets.right, height: headerBarHeight)
+            if isHeaderBarHidden {
+                return CGRect(x: view.safeAreaInsets.left, y: -headerBarHeight, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: headerBarHeight)
+            }
+            else {
+                return CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: headerBarHeight)
+            }
         } else if prefersStatusBarHidden {
-            return CGRect(x: 0, y: 0, width: self.view.bounds.width, height: headerBarHeight)
+            if isHeaderBarHidden {
+                return CGRect(x: 0, y: -headerBarHeight, width: view.bounds.width, height: headerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: 0, width: view.bounds.width, height: headerBarHeight)
+            }
         } else {
-            return CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: self.view.bounds.width, height: headerBarHeight)
+            if isHeaderBarHidden {
+                return CGRect(x: 0, y: -headerBarHeight, width: view.bounds.width, height: headerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: view.bounds.width, height: headerBarHeight)
+            }
         }
     }
     
@@ -99,8 +127,8 @@ open class XYJUIFullScreenPageViewController: UIViewController {
     open var isFooterBarHidden: Bool = true {
         didSet {
             guard oldValue != isFooterBarHidden else { return }
-            footerBar?.isHidden = isFooterBarHidden
-            footerBarBackground?.isHidden = isFooterBarHidden
+            footerBar?.frame = footerBarFrame
+            footerBarBackground?.frame = footerBarBackgroundFrame
             safeAreaView?.frame = safeArea
         }
     }
@@ -128,7 +156,6 @@ open class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(footerBarBackground!)
                 }
                 footerBarBackground?.frame = footerBarBackgroundFrame
-                footerBarBackground?.isHidden = isFooterBarHidden
             }
         }
     }
@@ -146,7 +173,6 @@ open class XYJUIFullScreenPageViewController: UIViewController {
                     view.addSubview(footerBar!)
                 }
                 footerBar?.frame = footerBarFrame
-                footerBar?.isHidden = isFooterBarHidden
             }
         }
     }
@@ -154,18 +180,39 @@ open class XYJUIFullScreenPageViewController: UIViewController {
     // MARK: 页脚背景框架
     open var footerBarBackgroundFrame: CGRect {
         if #available(iOS 11.0, *) {
-            return CGRect(x: 0, y: view.bounds.height - view.safeAreaInsets.bottom - footerBarHeight, width: view.bounds.width, height: view.safeAreaInsets.bottom + footerBarHeight)
+            if isFooterBarHidden {
+                return CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.safeAreaInsets.bottom + footerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: view.bounds.height - view.safeAreaInsets.bottom - footerBarHeight, width: view.bounds.width, height: view.safeAreaInsets.bottom + footerBarHeight)
+            }
         } else {
-            return CGRect(x: 0, y: view.bounds.height - footerBarHeight, width: view.bounds.width, height: footerBarHeight)
+            if isFooterBarHidden {
+                return CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: footerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: view.bounds.height - footerBarHeight, width: view.bounds.width, height: footerBarHeight)
+            }
         }
     }
     
     // MARK: 页脚框架
     open var footerBarFrame: CGRect {
         if #available(iOS 11.0, *) {
-            return CGRect(x: view.safeAreaInsets.left, y: view.bounds.height - view.safeAreaInsets.bottom - footerBarHeight, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: footerBarHeight)
+            if isFooterBarHidden {
+                return CGRect(x: view.safeAreaInsets.left, y: view.bounds.height, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: footerBarHeight)
+            }
+            else {
+                return CGRect(x: view.safeAreaInsets.left, y: view.bounds.height - view.safeAreaInsets.bottom - footerBarHeight, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: footerBarHeight)
+            }
+            
         } else {
-            return CGRect(x: 0, y: view.bounds.height - footerBarHeight, width: view.bounds.width, height: footerBarHeight)
+            if isFooterBarHidden {
+                return CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: footerBarHeight)
+            }
+            else {
+                return CGRect(x: 0, y: view.bounds.height - footerBarHeight, width: view.bounds.width, height: footerBarHeight)
+            }
         }
     }
     
@@ -192,7 +239,7 @@ open class XYJUIFullScreenPageViewController: UIViewController {
                     view.insertSubview(safeAreaView!, aboveSubview: contentView!)
                 }
                 else {
-                    view.insertSubview(contentView!, at: 0)
+                    view.insertSubview(safeAreaView!, at: 0)
                 }
                 safeAreaView?.frame = safeArea
             }
@@ -234,6 +281,12 @@ open class XYJUIFullScreenPageViewController: UIViewController {
             }
         }
         return CGRect(x: x1, y: y1, width: x2 - x1, height: y2 - y1)
+    }
+    
+    open var safeAreaInsets: UIEdgeInsets {
+        let safeArea = self.safeArea
+        let area = view.bounds
+        return UIEdgeInsets(top: safeArea.minY - area.minY, left: area.minX - safeArea.minX, bottom: area.maxY - safeArea.maxY, right: area.maxX - safeArea.maxX)
     }
     
     // MARK: - 生命周期

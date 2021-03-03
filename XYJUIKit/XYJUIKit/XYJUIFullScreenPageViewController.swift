@@ -289,6 +289,31 @@ open class XYJUIFullScreenPageViewController: UIViewController {
         return UIEdgeInsets(top: safeArea.minY - area.minY, left: area.minX - safeArea.minX, bottom: area.maxY - safeArea.maxY, right: area.maxX - safeArea.maxX)
     }
     
+    // MARK: 可视内容区域
+    open var visiableArea: CGRect {
+        let minY = isHeaderBarHidden ? 0 : headerBarFrame.maxY
+        let maxY = isFooterBarHidden ? view.bounds.maxY : footerBarFrame.minY
+        
+        return CGRect(x: 0, y: minY, width: view.bounds.width, height: maxY - minY)
+    }
+    
+    // MARK: 可视内容视图
+    open var visiableAreaView: UIView? {
+        didSet {
+            guard oldValue != visiableAreaView else { return }
+            oldValue?.removeFromSuperview()
+            if visiableAreaView != nil {
+                if contentView != nil {
+                    view.insertSubview(visiableAreaView!, aboveSubview: contentView!)
+                }
+                else {
+                    view.insertSubview(visiableAreaView!, at: 0)
+                }
+                visiableAreaView?.frame = visiableArea
+            }
+        }
+    }
+    
     // MARK: - 生命周期
 
     open override func viewDidLayoutSubviews() {
@@ -312,6 +337,7 @@ open class XYJUIFullScreenPageViewController: UIViewController {
         footerBarBackground?.frame = footerBarBackgroundFrame
         contentView?.frame = view.bounds
         safeAreaView?.frame = safeArea
+        visiableAreaView?.frame = visiableArea
     }
     
 }
